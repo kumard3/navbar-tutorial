@@ -25,7 +25,6 @@ const navData = [
 export default function Nav() {
   // Create a ref that we add to the element for which we want to detect outside clicks
   const ref = useRef<HTMLDivElement>(null);
-  const buttonRef = useRef<HTMLDivElement>(null);
 
   // State for our modal
   const [isModalOpen, setModalOpen] = useState(false);
@@ -34,8 +33,7 @@ export default function Nav() {
 
 
   return (
-    // <Popover className= {`sticky top-0 z-40 w-full backdrop-blur flex-none transition-colors duration-500 lg:z-50 lg:border-b lg:border-gray-900/10 bg-white supports-backdrop-blur:bg-white/95 ${show && 'bg-inherit	'}`}>
-    <div className="fixed top-0  w-full  text-xl font-bold drop-shadow-x lg:z-50 ">
+     <div className="fixed top-0  w-full  text-xl font-bold drop-shadow-x lg:z-50 ">
       <div className="w-full container mx-auto">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 ">
           <div className="flex justify-between items-center   py-6 sm:justify-between sm:space-x-10">
@@ -45,10 +43,20 @@ export default function Nav() {
                 <h1 className="h-[3.5rem] flex items-center text-center" > Dev.ui </h1>
               </Link>
             </div>
+            
+            <nav className="hidden md:flex space-x-10 items-center">
+              {navData.map((n) => {
+                return (
+                  <Link key={n.name} href={n.href}>
+                    {n.name}
+                  </Link>
+                );
+              })}
+            </nav>
+
             <div className=" md:hidden">
-              <>
                 {isModalOpen ? (
-                  <div
+                <div
                     ref={ref}
                     className="fixed w-[24rem] right-0 top-0   h-[100vh]  transition  translate-x-[-1px] md:hidden"
                   >
@@ -59,7 +67,6 @@ export default function Nav() {
                             onClick={() => setModalOpen(!true)}
                             className="bg-white rounded-md p-2 inline-flex items-center justify-center text-black hover:text-gray-500 hover:bg-gray-100 "
                           >
-                            <span className="sr-only">Close menu</span>
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               fill="none"
@@ -119,17 +126,8 @@ export default function Nav() {
                     </button>
                   </div>
                 )}
-              </>
+            
             </div>
-            <nav className="hidden md:flex space-x-10 items-center">
-              {navData.map((n) => {
-                return (
-                  <Link key={n.name} href={n.href}>
-                    {n.name}
-                  </Link>
-                );
-              })}
-            </nav>
           </div>
         </div>
       </div>
